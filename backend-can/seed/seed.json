@@ -3,10 +3,48 @@
     { "name": "Côte d’Ivoire", "code": "CIV" },
     { "name": "Sénégal", "code": "SEN" },
     { "name": "Maroc", "code": "MAR" },
-    { "name": "Nigeria", "code": "NGA" }
+    { "name": "Nigeria", "code": "NGA" },
+    { "name": "Congo", "code": "CGO" },
+    { "name": "Algérie", "code": "ALG" },
+    { "name": "Burkina Faso", "code": "BKF" },
+    { "name": "Mauritanie", "code": "MAU" }
   ],
   "matches": [
-    { "group": "A", "kickoffAt": "2025-01-15T20:00:00Z", "homeCode": "CIV", "awayCode": "SEN", "status": "SCHEDULED", "homeScore": null, "awayScore": null },
-    { "group": "B", "kickoffAt": "2025-01-16T17:00:00Z", "homeCode": "MAR", "awayCode": "NGA", "status": "FT", "homeScore": 1, "awayScore": 1 }
+    {
+      "group": "A",
+      "kickoffAt": "2025-01-15T20:00:00Z",
+      "homeCode": "CIV",
+      "awayCode": "SEN",
+      "status": "SCHEDULED",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "group": "B",
+      "kickoffAt": "2025-01-16T17:00:00Z",
+      "homeCode": "MAR",
+      "awayCode": "NGA",
+      "status": "FT",
+      "homeScore": 1,
+      "awayScore": 1
+    },
+    {
+      "group": "C",
+      "kickoffAt": "2025-01-16T17:00:00Z",
+      "homeCode": "CGO",
+      "awayCode": "ALG",
+      "status": "FT",
+      "homeScore": 2,
+      "awayScore": 1
+    },
+    {
+      "group": "D",
+      "kickoffAt": "2025-01-16T17:00:00Z",
+      "homeCode": "BKF",
+      "awayCode": "MAU",
+      "status": "FT",
+      "homeScore": 2,
+      "awayScore": 2
+    }
   ]
 }

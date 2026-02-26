@@ -38,7 +38,6 @@ def seed(db: Session = Depends(get_db)):
     return run_seed(db)
 
 
-# Teams
 @app.get("/teams")
 def list_teams(db: Session = Depends(get_db)):
     rows = db.scalars(select(Team).order_by(Team.name)).all()
@@ -53,7 +52,6 @@ def list_teams(db: Session = Depends(get_db)):
     ]
 
 
-# Matches
 @app.get("/matches")
 def list_matches(db: Session = Depends(get_db)):
     rows = db.scalars(select(Match).order_by(Match.kickoff_at)).all()
@@ -71,3 +69,78 @@ def list_matches(db: Session = Depends(get_db)):
         }
         for m in rows
     ]
+
+@app.get("/standings")
+def standings(db: Session = Depends(get_db)):
+   
+    finished = db.scalars(
+        select(Match).where(Match.status == "FT")
+    ).all()
+
+    teams = db.scalars(select(Team)).all()
+    team_by_id = {t.id: t for t in teams}
+
+   
+    groups: dict[str, dict[int, dict]] = {}
+
+    def ensure_team(group: str, team_id: int):
+        groups.setdefault(group, {})
+        groups[group].setdefault(team_id, {
+            "teamId": team_id,
+            "team": team_by_id[team_id].name,
+            "code": team_by_id[team_id].code,
+            "played": 0,
+            "wins": 0,
+            "draws": 0,
+            "losses": 0,
+            "points": 0,
+            "gf": 0,
+            "ga": 0,
+            "gd": 0,
+        })
+        return groups[group][team_id]
+
+    for m in finished:
+        
+        if m.home_score is None or m.away_score is None:
+            continue
+
+        g = m.group
+        home = ensure_team(g, m.home_team_id)
+        away = ensure_team(g, m.away_team_id)
+
+        home["played"] += 1
+        away["played"] += 1
+
+        home["gf"] += m.home_score
+        home["ga"] += m.away_score
+
+        away["gf"] += m.away_score
+        away["ga"] += m.home_score
+
+        if m.home_score > m.away_score:
+            home["wins"] += 1
+            away["losses"] += 1
+            home["points"] += 3
+        elif m.home_score < m.away_score:
+            away["wins"] += 1
+            home["losses"] += 1
+            away["points"] += 3
+        else:
+            home["draws"] += 1
+            away["draws"] += 1
+            home["points"] += 1
+            away["points"] += 1
+
+   
+    result: dict[str, list[dict]] = {}
+    for g, table in groups.items():
+        rows = list(table.values())
+        for r in rows:
+            r["gd"] = r["gf"] - r["ga"]
+
+        rows.sort(key=lambda x: (x["points"], x["gd"], x["gf"]), reverse=True)
+        result[g] = rows
+
+    return result
+
