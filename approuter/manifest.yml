@@ -1,0 +1,16 @@
+applications:
+  - name: can-approuter
+    memory: 128M
+    instances: 1
+    buildpacks:
+      - nodejs_buildpack
+    command: npm start
+    env:
+      destinations: >
+        [
+          {
+            "name": "can_api",
+            "url": "https://can-api.cfapps.us10-001.hana.ondemand.com",
+            "forwardAuthToken": false
+          }
+        ]
