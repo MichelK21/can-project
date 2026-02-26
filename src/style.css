@@ -2,11 +2,24 @@
   --can-night: #0b1020;
   --can-sahara: #c98c3a;
   --can-kente: #1f7a4d;
+  --can-text: rgba(255, 255, 255, 0.92);
+  --can-muted: rgba(255, 255, 255, 0.62);
+  --can-border: rgba(255, 255, 255, 0.12);
 }
 
 body {
   background: var(--can-night);
-  color: #fff;
+  color: var(--can-text);
+}
+
+.can-muted {
+  color: var(--can-muted);
+}
+
+.can-header {
+  backdrop-filter: blur(10px);
+  background: rgba(11, 16, 32, 0.7);
+  border-bottom: 1px solid var(--can-border);
 }
 
 .can-brand {
@@ -15,12 +28,20 @@ body {
 
 .can-card {
   background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--can-border);
   border-radius: 16px;
 }
 
-.can-muted {
+.nav-link-lite {
+  text-decoration: none;
   color: rgba(255, 255, 255, 0.65);
+}
+.nav-link-lite:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+.nav-link-lite.active {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
 }
 
 .can-btn {
@@ -35,37 +56,19 @@ body {
   text-decoration: none;
 }
 
-.can-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.95);
-}
-
 .can-btn-primary {
-  border: 1.5px solid rgba(201, 140, 58, 0.75); /* or sahara */
+  border: 1.5px solid rgba(201, 140, 58, 0.75);
   background: rgba(201, 140, 58, 0.15);
-  color: rgba(255, 255, 255, 0.95);
-
   box-shadow:
     0 0 0 1px rgba(201, 140, 58, 0.15),
     0 0 12px rgba(201, 140, 58, 0.15);
-
   transition: all 0.2s ease;
 }
-
 .can-btn-primary:hover {
   background: rgba(201, 140, 58, 0.25);
   border-color: rgba(201, 140, 58, 0.95);
-
   box-shadow:
     0 0 0 1px rgba(201, 140, 58, 0.35),
     0 0 18px rgba(201, 140, 58, 0.35);
-
   transform: translateY(-1px);
-}
-
-.can-btn-primary:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px rgba(201, 140, 58, 0.6),
-    0 0 20px rgba(201, 140, 58, 0.4);
 }

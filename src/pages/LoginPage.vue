@@ -1,14 +1,11 @@
 <template>
   <section class="vstack gap-3">
-    <!-- Header -->
     <header>
       <h2 class="mb-1">Connexion</h2>
       <div class="small can-muted">Accès administrateur (prototype)</div>
     </header>
 
-    <!-- Card -->
     <div class="can-card p-4" style="max-width: 460px">
-      <!-- Email -->
       <div class="mb-3">
         <label class="form-label">Email</label>
         <input
@@ -20,7 +17,6 @@
         />
       </div>
 
-      <!-- Password -->
       <div class="mb-3">
         <label class="form-label">Mot de passe</label>
         <input
@@ -32,7 +28,6 @@
         />
       </div>
 
-      <!-- Button -->
       <button class="can-btn can-btn-primary w-100" @click="submit">Se connecter</button>
     </div>
   </section>
@@ -55,10 +50,8 @@ function submit() {
     return;
   }
 
-  // Fake login (temporaire)
   auth.login(email.value);
 
-  // Redirection après login
   router.push("/");
 }
 </script>

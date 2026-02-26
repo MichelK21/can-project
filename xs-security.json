@@ -1,0 +1,14 @@
+{
+  "xsappname": "can-xsapp",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    { "name": "$XSAPPNAME.user", "description": "User scope" }
+  ],
+  "role-templates": [
+    {
+      "name": "User",
+      "description": "User role",
+      "scope-references": ["$XSAPPNAME.user"]
+    }
+  ]
+}

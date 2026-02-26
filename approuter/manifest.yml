@@ -5,12 +5,14 @@ applications:
     buildpacks:
       - nodejs_buildpack
     command: npm start
+    services:
+      - can-xsuaa
     env:
       destinations: >
         [
           {
             "name": "can_api",
             "url": "https://can-api.cfapps.us10-001.hana.ondemand.com",
-            "forwardAuthToken": false
+            "forwardAuthToken": true
           }
         ]

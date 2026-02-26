@@ -1,13 +1,13 @@
 {
   "welcomeFile": "/index.html",
-  "authenticationMethod": "none",
+  "authenticationMethod": "route",
   "routes": [
     {
       "source": "^/api/(.*)$",
       "target": "/$1",
       "destination": "can_api",
       "csrfProtection": false,
-      "authenticationType": "none"
+      "authenticationType": "xsuaa"
     },
     {
       "source": "^(.*)$",
