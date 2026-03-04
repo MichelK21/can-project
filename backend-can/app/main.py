@@ -2,7 +2,7 @@ from fastapi import FastAPI, Depends, Header, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-
+from app.security import require_jwt, require_scope
 from .db import get_db
 from .models import Team, Match
 from .seed import init_db, run_seed
@@ -33,6 +33,21 @@ def health(authorization: str | None = Header(default=None)):
         raise HTTPException(status_code=401, detail="Missing token")
     return {"status": "ok"}
 
+# endpoint protégé : nécessite token valide
+@app.get("/secure/health")
+def secure_health(claims=Depends(require_jwt)):
+    return {"status": "ok", "user": claims.get("user_name"), "sub": claims.get("sub")}
+
+# endpoint protégé + scope
+@app.get("/secure/me")
+def me(claims=Depends(require_scope("can-xsapp.user"))):
+    return {
+        "user_name": claims.get("user_name"),
+        "email": claims.get("email"),
+        "scope": claims.get("scope"),
+        "aud": claims.get("aud"),
+        "iss": claims.get("iss"),
+    }
 
 # Seed DB
 @app.post("/admin/seed")
