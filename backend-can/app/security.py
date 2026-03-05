@@ -80,8 +80,10 @@ def require_jwt(
             token,
             key,
             algorithms=["RS256"],
-            issuer=expected_issuer,
-            options=options,
+            options={
+                "verify_aud": False,
+                "verify_iss": False
+    }
         )
     except JWTError as e:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=f"JWT validation failed: {str(e)}")
