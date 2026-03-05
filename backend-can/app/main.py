@@ -38,6 +38,7 @@ def health(authorization: str | None = Header(default=None)):
 def secure_health(claims=Depends(require_jwt)):
     return {"status": "ok", "user": claims.get("user_name"), "sub": claims.get("sub")}
 
+
 # endpoint protégé + scope
 @app.get("/secure/me")
 def me(claims=Depends(require_scope("can-xsapp.user"))):
@@ -48,6 +49,7 @@ def me(claims=Depends(require_scope("can-xsapp.user"))):
         "aud": claims.get("aud"),
         "iss": claims.get("iss"),
     }
+
 
 # Seed DB
 @app.post("/admin/seed")
